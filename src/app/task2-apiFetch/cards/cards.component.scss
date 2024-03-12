@@ -1,0 +1,26 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.top-h{
+    padding: 20px;
+    text-align: center;
+    color: gold;
+    background-color: indigo;
+}
+.main{
+    display: flex;
+    flex-wrap: wrap;        
+    justify-content: center;
+    // cursor: pointer;
+}
+.posts{
+    width: 300px;
+    height: 300px;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+    // background-color: green;
+    margin: 30px;
+}

@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.top-h{
+    padding: 20px;
+    text-align: center;
+    color: gold;
+    background-color: indigo;
+}
+.main{
+    display: flex;
+    flex-wrap: wrap;        
+    justify-content: center;
+    // cursor: pointer;
+}
+.posts{
+    width: 300px;
+    height: 300px;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+    // background-color: green;
+    margin: 30px;
+}
+.comments{
+    width: 250px;
+    height: auto;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+    margin: 40px;
+    padding: 20px;
+    border-radius: 8px;
+}
+.comentBtn{
+    padding: 15px;
+    margin-top: 20px;
+    background-color: indigo;
+    color: gold;
+    border: none;
+    border-radius: 8px;
+}

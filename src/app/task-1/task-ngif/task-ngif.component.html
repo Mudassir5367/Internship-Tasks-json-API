@@ -1,0 +1,32 @@
+<h1>Search Age | structure directives</h1>
+    <input type="number" [(ngModel)] = 'searchAge' placeholder="Enter Age">
+    <button (click) = 'search()'>Search</button>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="show; else filterAge">
+            <tr *ngFor="let arr of data">
+                <td>{{arr.name}}</td>
+                <td>{{arr.age}}</td>
+                <td>{{arr.gender}}</td>
+            </tr>
+            <!-- <tr *ngFor="let filterData of data">
+            <td *ngIf="filterData.age == this.searchAge || filterData.age > this.searchAge">{{filterData.age}}</td>
+            </tr> -->
+        </tbody>
+        <ng-template #filterAge>
+            <tr *ngFor="let filterData of data">
+                <td *ngIf="filterData.age == this.searchAge || filterData.age > this.searchAge">{{filterData.name}}</td>
+                <td *ngIf="filterData.age == this.searchAge || filterData.age > this.searchAge">{{filterData.age}}</td>
+                <td *ngIf="filterData.age == this.searchAge || filterData.age > this.searchAge">{{filterData.gender}}</td>
+            </tr>
+        </ng-template>
+            
+    </table>
+
+    

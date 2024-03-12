@@ -1,0 +1,23 @@
+<h1 class="top-h">Id Post</h1>
+<!-- <h1>datatatatta :{{id}}</h1> -->
+
+<div class="main" *ngFor="let arr of posts">
+    <div class="posts" *ngIf="arr.id == id" >
+        <div class="post"  (click)="handleCardClick(arr)" >
+            <div class="post" (click)="handleCardClickId(arr.id)" >
+            <div class="title">
+                <h2>Title: {{ arr.title }}</h2>
+            </div>
+            <div class="userId">
+                <div>User ID: {{ arr.userId }}</div>
+            </div>
+            <div class="id">
+                <div>ID: {{ arr.id }}</div>
+            </div>
+            <div class="body">
+                <p>{{ arr.body }}</p>
+            </div>
+        </div>
+        <div *ngIf="!arr">Loading...</div>  <!--Display a loading message while fetching data -->
+    </div>
+</div>
