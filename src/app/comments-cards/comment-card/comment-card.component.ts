@@ -35,7 +35,7 @@ export class CommentCardComponent {
 
     this.service.getCommentsById(this.id).subscribe(
       (res => {
-        console.log('comments',res);
+        // console.log('comments',res);
         this.comments = res;
         
       })

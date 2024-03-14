@@ -10,8 +10,6 @@ import { Router } from '@angular/router';
 })
 export class CardsComponent {
 allData:any = [];
-// selectedPost: any = {};
-// isPostSelected: boolean = false;
 constructor(private service:ApiDataService,
   private router:Router
   ){

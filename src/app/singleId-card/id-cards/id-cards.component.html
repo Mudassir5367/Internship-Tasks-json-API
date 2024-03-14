@@ -2,7 +2,7 @@
 <!-- <h1>datatatatta :{{id}}</h1> -->
 
 <div class="main" *ngFor="let arr of posts">
-    <div class="posts" *ngIf="arr.id == id" >
+    <div class="posts" *ngIf="arr.id == this.id" >
         <div class="post"  (click)="handleCardClick(arr)" >
             <div class="post" (click)="handleCardClickId(arr.id)" >
             <div class="title">

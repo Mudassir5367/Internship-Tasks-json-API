@@ -1,5 +1,5 @@
 <h1 class="top-h">Comments Cards</h1>
-<h1>idddddddddd{{id}}</h1>
+<!-- <h1>idddddddddd{{id}}</h1> -->
 
 
 <div class="main" *ngFor="let arr of allData">
@@ -19,11 +19,11 @@
                 <p>{{ arr.body }}</p>
             </div>
             <button class="comentBtn" (click) = 'commentsHandle()'>Comments</button>
-            <div *ngFor="let comment of comments" class="body">
+            <div *ngFor="let comment of comments">
                <div *ngIf="arr.id == id">
                 <div class="comments" *ngIf="isComment">
-                    <p> ID:  {{comment.id}}</p>
                     <p> PostId: {{comment.postId}}</p>
+                    <p> ID:  {{comment.id}}</p>
                     <p> Name: {{comment.name}}</p>
                     <p> E-mail: {{comment.email}}</p>
                     <p> Body: {{comment.body}}</p>
