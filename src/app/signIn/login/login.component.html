@@ -1,0 +1,26 @@
+<h1 class="top-h">SignIn Form</h1>
+
+<div class="mainSignup">
+    <h1>SignIn</h1>
+    <form [formGroup]= 'signInForm' (ngSubmit) = 'submitData()'>
+        
+        <div id="lables">
+            <label for="name">E-mail: </label>
+            <div>
+                <input class="inputs" type="email" name="email" formControlName="email">
+            </div>
+            </div>
+
+        <div id="lables">
+            <label for="name">Password: </label>
+            <div>
+                <input class="inputs" type="password" name="password" formControlName="password">
+            </div>
+            </div>
+
+            <div>
+                <button class="signBtn" type="submit" >signIn</button>
+            </div>
+            <a [routerLink]="['/']"  >new User / Signup</a>
+    </form>
+</div>

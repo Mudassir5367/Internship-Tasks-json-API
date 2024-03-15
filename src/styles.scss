@@ -32,6 +32,7 @@
     margin: 40px;
     padding: 20px;
     border-radius: 8px;
+    margin-bottom: 15px;
 }
 .comentBtn{
     padding: 15px;
@@ -40,5 +41,59 @@
     color: gold;
     border: none;
     border-radius: 8px;
+    cursor: pointer;
+}
+
+.seeMore span{
+    color: indigo;
+    cursor: pointer;
+}
+.seeLess span{
+    color: indigo;
+    cursor: pointer;
+}
+
+// signup
+#lables label{
+    text-align: start;
+}
+.mainSignup{
+    width:500px;
+    height: auto;
+    margin: auto;
+    margin-top: 30px;
+    box-shadow: 0 0 16px rgba(0, 0, 0 ,0.1);
+    text-align: center;
+    border-radius: 8px;
+}
+.mainSignup h1{
+    margin: 15px;
+}
+.inputs{
+    padding: 12px;
+    margin: 10px;
+    width: 300px;
+    border-radius: 8px;
+    border: 2px solid black;
+    background-color: #dadada rgba(0, 0, 0 ,0.1);
+}
+.signBtn{
+    padding: 15px;
+    margin: 20px;
+    background-color: indigo;
+    color: gold;
+    border: none;
+    border-radius: 8px;
+    width: 200px;
+    cursor: pointer;
+}
+.btnDis{
+    padding: 15px;
+    margin: 20px;
+    background-color: indigo;
+    color: gold;
+    border: none;
+    border-radius: 8px;
+    width: 200px;
     cursor: pointer;
 }

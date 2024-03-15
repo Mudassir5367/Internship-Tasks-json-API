@@ -26,7 +26,12 @@
                     <p> ID:  {{comment.id}}</p>
                     <p> Name: {{comment.name}}</p>
                     <p> E-mail: {{comment.email}}</p>
-                    <p> Body: {{comment.body}}</p>
+                    <div *ngIf="!comment.expanded">
+                        <p class="seeMore"> Body: {{comment.body | slice:0:10}}... <span (click) = 'toggleExpand(comment)' ><u>See More</u></span></p>
+                    </div>
+                    <div *ngIf="comment.expanded">
+                        <p class="seeLess"> Body: {{comment.body}} <span (click) = 'toggleExpand(comment)' ><u>See Less</u></span></p>
+    
                 </div>
                </div>
             </div>

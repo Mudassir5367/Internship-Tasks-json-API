@@ -13,7 +13,7 @@ export class CommentCardComponent {
   comments:any = []
   // postId:number = 1
   allData:any = []
-  isComment:boolean = false;
+  isComment:boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,11 +36,19 @@ export class CommentCardComponent {
     this.service.getCommentsById(this.id).subscribe(
       (res => {
         // console.log('comments',res);
-        this.comments = res;
+        this.comments = res;        
+        this.comments = this.comments.map((coment: any) => ({...coment, expanded:false}));
+        // console.log('expanded',this.comments);
+        
         
       })
     )
   }
+
+  toggleExpand(comment: any) {
+    comment.expanded = !comment.expanded;
+  }
+
   commentsHandle(){
     this.isComment = !this.isComment
   }

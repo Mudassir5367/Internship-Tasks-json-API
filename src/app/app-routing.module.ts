@@ -3,9 +3,13 @@ import { RouterModule, Routes, provideRouter, withComponentInputBinding } from '
 import { CommentCardComponent } from './comments-cards/comment-card/comment-card.component';
 import { CardsComponent } from './task2-apiFetch/cards/cards.component';
 import { IdCardsComponent } from './singleId-card/id-cards/id-cards.component';
+import { RegisterComponent } from './signUp/register/register.component';
+import { LoginComponent } from './signIn/login/login.component';
 
 const routes: Routes = [
-  {path:'', component:CardsComponent},
+  {path:'', component:RegisterComponent},
+  {path:'login', component:LoginComponent},
+  // {path:'', component:CardsComponent},
   {path:':id', component:IdCardsComponent},
   { path: ':id/comments', component: CommentCardComponent }
 ];
