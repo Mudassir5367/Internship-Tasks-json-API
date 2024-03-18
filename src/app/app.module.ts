@@ -12,6 +12,7 @@ import { CommentCardComponent } from './comments-cards/comment-card/comment-card
 import { IdCardsComponent } from './singleId-card/id-cards/id-cards.component';
 import { RegisterComponent } from './signUp/register/register.component';
 import { LoginComponent } from './signIn/login/login.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { LoginComponent } from './signIn/login/login.component';
     CommentCardComponent,
     IdCardsComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,7 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -8,7 +10,11 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 })
 export class RegisterComponent {
   signUpForm!:FormGroup;
-  constructor(private formBuilder:FormBuilder) {
+  constructor(
+    private formBuilder:FormBuilder,
+    private http: HttpClient,
+    private router:Router,
+    ) {
     this.signUpForm = formBuilder.group({
       name:['',Validators.required],
       email:['',
@@ -25,7 +31,11 @@ export class RegisterComponent {
   ],
   password:['',Validators.required],
     })
-}
+  
+  }
+
+
+
 
 submitData(){
   if(this.signUpForm.invalid){
@@ -34,5 +44,24 @@ submitData(){
   }else{
     console.log(this.signUpForm.value);
   }
+  if (this.signUpForm.valid) {
+    this.http.post('http://localhost:5000/api/register', this.signUpForm.value, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }).subscribe(
+      (res) => {
+        console.log('User registered:', res);
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        console.error('Error registering user:', error);
+      }
+    );
+  } else {
+    console.error('Form is invalid');
+    alert('please Enter Valid Credentials')
+  }
+
 }
 }

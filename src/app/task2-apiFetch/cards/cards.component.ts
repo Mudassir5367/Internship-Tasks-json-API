@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ApiDataService } from '../../services/api-data.service';
-import { error } from 'console';
 import { Router } from '@angular/router';
 
 @Component({
@@ -27,12 +26,12 @@ constructor(private service:ApiDataService,
 }
 handleCardClick(data:any){
   // console.log(data);
-  this.router.navigate(['/:id'])
+  this.router.navigate(['/post/:id'])
   
 }
 handleCardClickId(id:number){
   console.log(id);
-  this.router.navigate(['',id])
+  this.router.navigate(['/post',id])
 
 }
 }

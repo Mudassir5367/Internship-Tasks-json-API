@@ -18,23 +18,23 @@
             <div class="body">
                 <p>{{ arr.body }}</p>
             </div>
-            <button class="comentBtn" (click) = 'commentsHandle()'>Comments</button>
+            <button class="comentBtn" (click) = 'commentsHandle()'>{{isComment ? 'Comments-Hide' : 'Comments-Show'}}</button>
             <div *ngFor="let comment of comments">
-               <div *ngIf="arr.id == id">
-                <div class="comments" *ngIf="isComment">
-                    <p> PostId: {{comment.postId}}</p>
-                    <p> ID:  {{comment.id}}</p>
-                    <p> Name: {{comment.name}}</p>
-                    <p> E-mail: {{comment.email}}</p>
-                    <div *ngIf="!comment.expanded">
-                        <p class="seeMore"> Body: {{comment.body | slice:0:10}}... <span (click) = 'toggleExpand(comment)' ><u>See More</u></span></p>
+                <div *ngIf="arr.id == id">
+                    <div class="comments" *ngIf="isComment">
+                        <p> PostId: {{comment.postId}}</p>
+                        <p> ID:  {{comment.id}}</p>
+                        <p> Name: {{comment.name}}</p>
+                        <p> E-mail: {{comment.email}}</p>
+                        <div *ngIf="!comment.expanded">
+                            <p class="seeMore"> Body: {{comment.body | slice:0:10}}... <span (click) = 'toggleExpand(comment)' ><u>See More</u></span></p>
+                        </div>
+                        <div *ngIf="comment.expanded">
+                            <p class="seeLess"> Body: {{comment.body}} <span (click) = 'toggleExpand(comment)' ><u>See Less</u></span></p>
+                            
+                        </div>
                     </div>
-                    <div *ngIf="comment.expanded">
-                        <p class="seeLess"> Body: {{comment.body}} <span (click) = 'toggleExpand(comment)' ><u>See Less</u></span></p>
-    
                 </div>
-               </div>
-            </div>
         </div>
         <div *ngIf="!arr">Loading...</div>  <!--Display a loading message while fetching data -->
     </div>

@@ -22,12 +22,12 @@ export class IdCardsComponent {
   }
   handleCardClick(data:any){
     // console.log(data);
-    this.router.navigate(['/:id/comments'])
+    this.router.navigate(['/post/:id/comments'])
     
   }
   handleCardClickId(id:number){
     // console.log(id);
-    this.router.navigate([`${id}/comments`]);
+    this.router.navigate([`/post/${id}/comments`]);
   
   }
 

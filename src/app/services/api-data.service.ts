@@ -17,4 +17,25 @@ export class ApiDataService {
     const url = `${this.apiUrl}/${postId}/comments`; 
     return this.http.get(url);
   }
+
+  // Auth-Guard
+
+  private isAuthenticated: boolean = false;
+
+  // Method to check if the user is logged in
+  isLoggedIn(): boolean {
+    return this.isAuthenticated;
+  }
+
+  // Method to simulate login
+  login(): void {
+    // In a real application, you would authenticate the user here
+    this.isAuthenticated = true;
+  }
+
+  // Method to simulate logout
+  logout(): void {
+    // In a real application, you would log out the user here
+    this.isAuthenticated = false;
+  }
 }
