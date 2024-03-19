@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 require('../db/connection')
+const jwt = require('jsonwebtoken')
 const User = require('../model/userSchema')
+// const authentication = require('../middleware/authentication')
 
 router.post('/api/register',async(req, res)=>{
     // console.log(req.body);
@@ -17,7 +19,10 @@ router.post('/api/register',async(req, res)=>{
                 return res.json({error:'user already exist'})
             }else{
                 const user = new User({name, email, phone, password})
-                await user.save()
+                // const newUser = new User({ name, email, phone, password });
+                await user.save();
+                const token = await user.generateAuthToken();
+                console.log('Generated Token:', token);
                 console.log('user data added to the database');
                 return res.json({ msg: 'User data added to the database' });
             }
@@ -46,6 +51,7 @@ router.post('/api/signin', async (req, res) => {
                     return res.json({error:'wrong password'})
                 }
             }
+           
         } catch (error) {
             console.error('Error during signin:', error);
             res.status(500).json({ error: 'Internal Server Error' });
