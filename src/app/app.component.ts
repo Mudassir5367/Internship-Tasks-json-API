@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Tasks';
+  constructor(){
+    // if(typeof sessionStorage !== 'undefined'){
+    //   sessionStorage.setItem('isLoggedIn', 'false');
+    // }   
+  }
 }

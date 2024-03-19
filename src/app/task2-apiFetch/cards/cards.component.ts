@@ -31,7 +31,7 @@ handleCardClick(data:any){
 }
 handleCardClickId(id:number){
   console.log(id);
-  this.router.navigate(['/post',id])
+  this.router.navigate(['/post',id, { queryParams: { token:'1234'}}])
 
 }
 }

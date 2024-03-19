@@ -52,7 +52,7 @@ submitData(){
     }).subscribe(
       (res) => {
         console.log('User registered:', res);
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
       },
       (error) => {
         console.error('Error registering user:', error);

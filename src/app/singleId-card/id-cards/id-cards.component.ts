@@ -27,7 +27,7 @@ export class IdCardsComponent {
   }
   handleCardClickId(id:number){
     // console.log(id);
-    this.router.navigate([`/post/${id}/comments`]);
+    this.router.navigate([`/post/${id}/comments`,{ queryParams: { token:'1234'}}]);
   
   }
 
