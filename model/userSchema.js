@@ -19,15 +19,7 @@ const userSchema = new mongoose.Schema({
     password:{
         type: String,
         required: true
-    },
-    tokens:[
-        {
-            token:{
-                type:String,
-                required:true
-            }
-        }
-    ]
+    }
 })
 
 
@@ -42,9 +34,6 @@ userSchema.pre('save', async function(next){
 
 userSchema.methods.generateAuthToken = async function(){
     const tokenData = jwt.sign({_id:this._id}, 'SECRETKEY');
-    // this.tokens.push({ token: tokenData });
-    this.tokens = this.tokens.concat({token:tokenData})
-    await this.save()
     return tokenData;
 }
 

@@ -3,8 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 require('../db/connection')
 const jwt = require('jsonwebtoken')
-const User = require('../model/userSchema')
-// const authentication = require('../middleware/authentication')
+const User = require('../model/userSchema');
+const verifyToken = require('../middleware/jwtVerify');
 
 router.post('/api/register',async(req, res)=>{
     // console.log(req.body);
@@ -21,8 +21,6 @@ router.post('/api/register',async(req, res)=>{
                 const user = new User({name, email, phone, password})
                 // const newUser = new User({ name, email, phone, password });
                 await user.save();
-                const token = await user.generateAuthToken();
-                console.log('Generated Token:', token);
                 console.log('user data added to the database');
                 return res.json({ msg: 'User data added to the database' });
             }
@@ -42,11 +40,14 @@ router.post('/api/signin', async (req, res) => {
         }
         try {
             const loginUser = await User.findOne({email:email})
+            // console.log(loginUser);
             if(loginUser){
                 const isMatch = await bcrypt.compare(password, loginUser.password)
                 if(isMatch){
+                const token = await loginUser.generateAuthToken();
+                console.log('Generated Token:', token);
                     console.log('signin successful');
-                    return res.json(loginUser)
+                    return res.json({ token: token, loginUser: loginUser });
                 }else{
                     return res.json({error:'wrong password'})
                 }
@@ -57,5 +58,12 @@ router.post('/api/signin', async (req, res) => {
             res.status(500).json({ error: 'Internal Server Error' });
         }
 })
+
+
+// Apply verifyToken middleware to routes that require authentication
+router.get('/api/protected', verifyToken, async(req, res) => {
+    // Access authenticated user via req.user
+    res.json({ message: 'Protected route', user: req.user });
+  });
 
 module.exports = router;
