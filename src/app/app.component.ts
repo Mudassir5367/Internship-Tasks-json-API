@@ -10,6 +10,7 @@ export class AppComponent {
   constructor(){
     // if(typeof sessionStorage !== 'undefined'){
     //   sessionStorage.setItem('isLoggedIn', 'false');
+    //   sessionStorage.removeItem('isLoggedIn');
     // }   
   }
 }

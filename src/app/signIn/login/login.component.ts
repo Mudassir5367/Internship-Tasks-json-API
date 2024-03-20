@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { json } from 'stream/consumers';
 
 @Component({
   selector: 'app-login',
@@ -41,20 +40,14 @@ submitData(){
     }).subscribe(
       (res:any) => {
         console.log('User logged in:', res);
-        if (res && (res as { _id: string })._id) {
-          // this.tokenData = JSON.parse(res)
-          this.tokenData = res
-          const token = this.tokenData.tokens
-          localStorage.setItem('token', token)
-          console.log('token',this.tokenData.tokens);
-          
-          // sessionStorage.setItem("isLoggedIn", "true");
-          
+        if (res && res.token) {
+        // if (res && (res as { _id: string })._id) {
+          localStorage.setItem('token', res.token);
+          // localStorage.setItem('userData', JSON.stringify(res.loginUser));
           this.router.navigate(['/post',{ queryParams: { token:'1234'}}]);
         } else {
-          // sessionStorage.setItem("isLoggedIn", "false");
-          alert('Invalid Credentials'); 
           // this.router.navigate(['/login']);
+          alert('Invalid Credentials'); 
         }
 
       },

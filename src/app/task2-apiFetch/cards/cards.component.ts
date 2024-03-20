@@ -34,4 +34,7 @@ handleCardClickId(id:number){
   this.router.navigate(['/post',id, { queryParams: { token:'1234'}}])
 
 }
+logout(){
+  window.localStorage.setItem('token', '')
+}
 }

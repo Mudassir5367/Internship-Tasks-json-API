@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,7 +6,10 @@ import { Injectable } from '@angular/core';
 })
 export class ApiDataService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) { 
+    console.log(this.verifyToken());
+    
+  }
   apiUrl:string = 'https://jsonplaceholder.typicode.com/posts'
   // urlId:string = 'https://jsonplaceholder.typicode.com/posts/id/comments'
   
@@ -20,22 +23,26 @@ export class ApiDataService {
 
   // Auth-Guard
 
-  private isAuthenticated: boolean = false;
+  // getToken(): string | null {
+  //   if (typeof window !== 'undefined') {
+  //     return localStorage.getItem('token');
+  //   }
+  //   return null;
+  // }
+  // isLoggedIn(): boolean {
+  //   return !!this.getToken();
+  // }
 
-  // Method to check if the user is logged in
-  isLoggedIn(): boolean {
-    return this.isAuthenticated;
-  }
-
-  // Method to simulate login
-  login(): void {
-    // In a real application, you would authenticate the user here
-    this.isAuthenticated = true;
-  }
-
-  // Method to simulate logout
   logout(): void {
-    // In a real application, you would log out the user here
-    this.isAuthenticated = false;
+    if (typeof window !== 'undefined'){
+      localStorage.removeItem('token');
+      JSON.parse(window.localStorage.removeItem('userData')!);
+    }
+  }
+
+  verifyToken(){
+    const token = window.localStorage.getItem('token')
+    const verifyToken = new HttpHeaders().set('Authorization', ''+token) 
+    return this.http.get('http://localhost:5000/api/protected',{headers:verifyToken}) 
   }
 }

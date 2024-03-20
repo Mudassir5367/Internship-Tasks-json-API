@@ -12,9 +12,9 @@ const routes: Routes = [
   {path:'',redirectTo:'login', pathMatch:'full'},
   {path:'login',component: LoginComponent,},
   {path:'signup', component:RegisterComponent},
-  {path:'post', component:CardsComponent},
-  {path:'post/:id', component:IdCardsComponent},
-  { path: 'post/:id/comments', component: CommentCardComponent },
+  {path:'post', component:CardsComponent,  canActivate: [authGuard] },
+  {path:'post/:id', component:IdCardsComponent, canActivate: [authGuard] },
+  { path: 'post/:id/comments', component: CommentCardComponent, canActivate: [authGuard]},
   { path: '**', component: PageNotFoundComponent }
 ];
 

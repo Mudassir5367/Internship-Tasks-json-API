@@ -1,19 +1,38 @@
-import { CanActivateFn, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-// import { inject } from '@angular/core';
-// import { session } from '../utils/session';
-// import { }
-
+import { CanActivateFn, Router, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
+import { ApiDataService } from '../services/api-data.service';
+import {inject} from '@angular/core';
 export const authGuard: CanActivateFn  = (route:ActivatedRouteSnapshot, state:RouterStateSnapshot) => {
-  // const isLoggedId = sessionStorage.getItem("isLoggedIn")
-  // if(isLoggedId === "false"){
-  //   alert('Not Authenticated User !')
+  const service = inject(ApiDataService);
+  const router = inject(Router);
+  // if (service.isLoggedIn()) {
+  //   return true-;
+  // } else {
+  //   // Redirect to login page if user is not authenticated
+  //   router.navigate(['/login']);
   //   return false;
   // }
-  return true;
-  // const router:Router = inject(Router);
-  // const protectedRoutes:string [] = ['/']
-  // return protectedRoutes.includes(state.url) && !session
-  // ? router.navigate(['/'])
-  // : true
-  
+  const token = window.localStorage.getItem('token')
+  if(token){
+    
+  }
+  service.verifyToken().subscribe(
+    (res:any) => {
+      console.log('Response:', res);
+      if (res && res.token) {
+        return true
+        // alert('---')
+        // router.navigate(['/post']);
+      } else {
+        // router.navigate(['/login']);
+        return false
+      }
+    },
+    (error) => {
+      console.error('Error verifying token:', error);
+      router.navigate(['/login']);
+    }
+  );
+ return true
 };
+
+
