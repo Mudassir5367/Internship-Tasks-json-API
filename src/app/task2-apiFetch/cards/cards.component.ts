@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class CardsComponent {
 allData:any = [];
+dataFromBackend:any = [];
 constructor(private service:ApiDataService,
   private router:Router
   ){
@@ -16,6 +17,24 @@ constructor(private service:ApiDataService,
     (res)=>{
       this.allData = res;
       // console.log(this.allData);
+      this.service.sendDataToBackend(this.allData).subscribe(
+        (res)=>{
+          console.log('Data sent to backend:', res);
+         
+          
+          this.allData = []
+        }
+      )
+      this.service.fetchAllPosts().subscribe(
+        (posts) => {
+          console.log('Fetched posts:', posts);
+          this.dataFromBackend = posts;
+        },
+        (error) => {
+          console.error('Error fetching posts:', error);
+        }
+      );
+      
       
     },
     (error) =>{

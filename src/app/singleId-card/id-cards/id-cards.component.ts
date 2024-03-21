@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ApiDataService } from '../../services/api-data.service';
-import {  Router } from '@angular/router';
+import {  ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-id-cards',
@@ -9,16 +9,29 @@ import {  Router } from '@angular/router';
 })
 export class IdCardsComponent {
   posts: any;
-  @Input() id:string = '';
+  post:any
+  // @Input() id:string = '';
   constructor(
    private router:Router,
+   private route:ActivatedRoute,
     private service:ApiDataService
     ) {
-    this.service.getData().subscribe(
-      (res =>{
-        this.posts = res;
-      })
-    )
+      this.route.params.subscribe(params=>{
+        const postId = +params['id']
+        this.service.fetchPostDetailsById(postId).subscribe(
+          (res)=>{
+            console.log('idddddddddddd',res);
+            this.post = res;
+          }
+          )
+        })
+    // this.service.getData().subscribe(
+    //   (res =>{
+    //     this.posts = res;
+    //     // console.log(this.posts);
+        
+    //   })
+    // )
   }
   handleCardClick(data:any){
     // console.log(data);

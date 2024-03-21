@@ -5,7 +5,7 @@
 </div>
 
 <div  class="main">
-    <div *ngFor="let arr of allData" class="posts">
+    <div *ngFor="let arr of dataFromBackend" class="posts">
         <!-- <div class="post" (click)="handleCardClick(arr)" [routerLink]="['','123']" > -->
             <div class="post" (click)="handleCardClick(arr)" >
                 <div class="post" (click)="handleCardClickId(arr.id)" >
