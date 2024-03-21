@@ -35,6 +35,9 @@ handleCardClickId(id:number){
 
 }
 logout(){
+  console.log('logout');
+  
   window.localStorage.setItem('token', '')
+  this.router.navigate(['/login'])
 }
 }
