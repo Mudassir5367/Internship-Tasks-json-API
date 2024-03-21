@@ -23,6 +23,29 @@ const userSchema = new mongoose.Schema({
 })
 
 
+
+// Posts Schema
+
+const postsSchema = new mongoose.Schema({
+    userId:{
+        required: true,
+        type: Number
+    },
+    id:{
+        required: true,
+        type: Number
+    },
+    title:{
+        type: String,
+        required: true
+    },
+    body:{
+        type: String,
+        required: true
+    }
+})
+
+
 userSchema.pre('save', async function(next){
   if(this.isModified('password')){
     this.password = await bcrypt.hash(this.password, 12);
@@ -40,4 +63,8 @@ userSchema.methods.generateAuthToken = async function(){
 
 
 const User = mongoose.model('User',userSchema)
-module.exports = User;
+// module.exports = User;
+
+
+const Posts = mongoose.model('Post',postsSchema);
+module.exports = {User,Posts};

@@ -3,7 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 require('../db/connection')
 const jwt = require('jsonwebtoken')
-const User = require('../model/userSchema');
+const {User} = require('../model/userSchema');
+const {Posts} = require('../model/userSchema');
 const verifyToken = require('../middleware/jwtVerify');
 
 router.post('/api/register',async(req, res)=>{
@@ -65,5 +66,59 @@ router.get('/api/protected', verifyToken, async(req, res) => {
     // Access authenticated user via req.user
     res.json({ message: 'Protected route', user: req.user });
   });
+
+
+
+
+
+  // Route to save data Posts
+  router.post('/api/post', async (req, res) => {
+    try {
+        for (let post of req.body) {
+            const data = await Posts.findOne({ id: post.id });
+            if (data) {
+                return res.status(400).json({ error: 'Data already in DB' });
+            } else {
+                const newPost = new Posts(post);
+                await newPost.save();
+            }
+        }
+        res.status(200).json({ message: 'Data saved successfully' });
+    } catch (error) {
+        console.log('Data not saved', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+router.get('/api/posts', async (req, res) => {
+    try {
+        // Fetch all posts from the database
+        const posts = await Posts.find();
+        res.status(200).json(posts);
+    } catch (error) {
+        console.log('Error fetching posts', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// single card or id details get
+router.get('/api/post/:id', async (req, res) => {
+    try {
+        const postId = req.params.id;
+        const post = await Posts.findOne({ id: postId });
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        res.status(200).json(post);
+    } catch (error) {
+        console.log('Error fetching post details:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
+
 
 module.exports = router;
