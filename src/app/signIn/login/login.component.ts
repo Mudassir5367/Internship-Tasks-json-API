@@ -44,7 +44,7 @@ submitData(){
         // if (res && (res as { _id: string })._id) {
           localStorage.setItem('token', res.token);
           // localStorage.setItem('userData', JSON.stringify(res.loginUser));
-          this.router.navigate(['/post',{ queryParams: { token:'1234'}}]);
+          this.router.navigate(['/selectData',{ queryParams: { token:'1234'}}]);
         } else {
           // this.router.navigate(['/login']);
           alert('Invalid Credentials'); 

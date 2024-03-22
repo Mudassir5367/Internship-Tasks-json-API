@@ -1,0 +1,38 @@
+<div><h1 class="top-h">Custom Posts </h1></div>
+
+<div class="mainSignup">
+    <form [formGroup]= 'customPost' (ngSubmit) = 'submitData()'>
+        <div id="lables">
+            <label for="name">Title: </label>
+            <div>
+                <input class="inputs" type="text" name="title" formControlName="title">
+            </div>
+            </div>
+        <div id="lables">
+        <label  for="name">ID </label>
+        <div>
+            <input class="inputs" type="number" name="id" formControlName="id">
+        </div>
+        </div>
+        
+        <div id="lables">
+            <label for="name">User ID: </label>
+            <div>
+                <input class="inputs" type="number" name="userId" formControlName="userId">
+            </div>
+            </div>
+
+
+        <div id="lables">
+            <label for="name">Body: </label>
+            <div>
+                <input class="inputs" type="text" name="body" formControlName="body">
+            </div>
+            </div>
+
+            <div>
+                <button class="signBtn" type="submit" >Submit</button>
+            </div>
+            <!-- <a [routerLink]="['/login']"  >Already User/ Login</a> -->
+    </form>
+</div>

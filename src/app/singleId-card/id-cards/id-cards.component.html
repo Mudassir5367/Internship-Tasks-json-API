@@ -22,11 +22,13 @@
     </div>
 </div> -->
 <!--Display a loading message while fetching data -->
-<div *ngIf="post">
-    <h2>Title: {{ post.title }}</h2>
-    <p> ID: {{ post.id }}</p>
-    <p>userID:  {{ post.userId }}</p>
-    <p>Body:  {{ post.body }}</p>
-    <!-- Display other post details as needed -->
-  </div>
+<div class="main" >
+    <div *ngIf="post" class="posts" (click) = 'gotoComments()'>
+        <h2>Title: {{ post.title }}</h2>
+        <p> ID: {{ post.id }}</p>
+        <p>userID:  {{ post.userId }}</p>
+        <p>Body:  {{ post.body }}</p>
+        <!-- Display other post details as needed -->
+      </div>
+</div>
   

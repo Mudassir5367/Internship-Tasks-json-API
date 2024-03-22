@@ -20,7 +20,7 @@ export class IdCardsComponent {
         const postId = +params['id']
         this.service.fetchPostDetailsById(postId).subscribe(
           (res)=>{
-            console.log('idddddddddddd',res);
+            // console.log('idddddddddddd',res);
             this.post = res;
           }
           )
@@ -42,6 +42,9 @@ export class IdCardsComponent {
     // console.log(id);
     this.router.navigate([`/post/${id}/comments`,{ queryParams: { token:'1234'}}]);
   
+  }
+  gotoComments(){
+    this.router.navigate(['/post/:id/comments',{ queryParams: { token:'1234'}}]);
   }
 
 }

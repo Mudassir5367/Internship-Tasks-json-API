@@ -13,6 +13,9 @@ import { IdCardsComponent } from './singleId-card/id-cards/id-cards.component';
 import { RegisterComponent } from './signUp/register/register.component';
 import { LoginComponent } from './signIn/login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CustomPostComponent } from './customPosts/custom-post/custom-post.component';
+import { HomeTimelineComponent } from './data-filter/home-timeline/home-timeline.component';
+import { TimelineComponent } from './timeline/timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     IdCardsComponent,
     RegisterComponent,
     LoginComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CustomPostComponent,
+    HomeTimelineComponent,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,

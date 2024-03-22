@@ -1,8 +1,11 @@
 <div  class="top-h">
     <h1>All Posts</h1>
-    <button style="text-align: end;" (click) = 'logout()'>LogOut</button>
+    <!-- <button style="text-align: end;" (click) = 'logout()'>LogOut</button> -->
 
 </div>
+<button class="signBtn" type="submit" (click) = 'logout()'>logOut</button>
+<button class="signBtn" type="submit" [routerLink]="['/custom']">Create Posts</button>
+<button class="signBtn" type="submit" [routerLink]="['/selectData']">Select Posts</button>
 
 <div  class="main">
     <div *ngFor="let arr of dataFromBackend" class="posts">

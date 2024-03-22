@@ -31,18 +31,34 @@ export class ApiDataService {
 
   fetchAllPosts() {
     return this.http.get('http://localhost:5001/api/posts')
-      .pipe(
-        catchError(error => {
-          console.error('Error fetching posts:', error);
-          throw error; // Rethrow the error to be caught by the subscriber
-        })
-      );
+      // .pipe(
+      //   catchError(error => {
+      //     console.error('Error fetching posts:', error);
+      //     throw error; // Rethrow the error to be caught by the subscriber
+      //   })
+      // );
   }
 
   fetchPostDetailsById(id: number) {
     return this.http.get(`http://localhost:5001/api/post/${id}`);
   }
+
+  // custom post by users
+  creatPost(postData:any){
+    return this.http.post('http://localhost:5001/api/customPost', postData);
+  }
   
+  // get just custom posts
+
+  getCustomPosts(){
+    return this.http.get('http://localhost:5001/api/custom-posts');
+  }
+
+  // fetch specific login user posts
+  // fetchCustomPosts(token:string){
+  //   const headers = new HttpHeaders().set('Authorization', '' +token) 
+  //   return this.http.get('http://localhost:5001/api/specificUserPosts', {headers})
+  // }
 
   // Auth-Guard
 
