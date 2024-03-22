@@ -42,7 +42,12 @@ const postsSchema = new mongoose.Schema({
     body:{
         type: String,
         required: true
-    }
+    },
+    time:{
+        type: Date,
+        default: Date.now
+    },
+    isCustom: { type: Boolean, default: false } 
 })
 
 
