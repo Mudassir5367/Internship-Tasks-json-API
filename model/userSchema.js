@@ -27,9 +27,9 @@ const userSchema = new mongoose.Schema({
 // Posts Schema
 
 const postsSchema = new mongoose.Schema({
-    userId:{
-        required: true,
-        type: Number
+    userId: {
+        type: String,
+        required: true
     },
     id:{
         required: true,
@@ -47,7 +47,12 @@ const postsSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    isCustom: { type: Boolean, default: false } 
+    isCustom: { type: Boolean, default: false } ,
+    users: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        // required: true
+    },    
 })
 
 

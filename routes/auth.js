@@ -119,64 +119,100 @@ router.get('/api/post/:id', async (req, res) => {
 
 // custom post by login user
 
-router.post('/api/customPost', async (req, res)=>{
+// router.post('/api/customPost', async (req, res)=>{
+//     try {
+//         const {userId, id, title, body} = req.body;
+//         const data = await Posts.findOne({ id:id });
+//         if(data){
+//             console.log('Post with the same ID already exists');
+//             return res.json({msg:'Post with the same ID already exists'})
+//         }else{
+//             const newPost = new Posts({
+//                 userId,
+//                 title,
+//                 id,
+//                 body,
+//                 isCustom: true,
+//                 // users,
+                
+//             })
+//             await newPost.save();
+//             console.log('user data added to the database');
+//             return res.json({ msg: 'User data added to the database' });
+//         }
+//     } catch (error) {
+//         console.error('Error during registration:', error);
+//         return res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// })
+
+
+router.post('/api/customPost', verifyToken, async (req, res) => {
     try {
-        const {userId, id, title, body} = req.body;
-        const data = await Posts.findOne({ id:id });
-        if(!data){
-            const newPost = new Posts({
-                userId,
-                title,
-                id,
-                body,
-                isCustom: true
-            })
-            await newPost.save();
-            console.log('user data added to the database');
-            return res.json({ msg: 'User data added to the database' });
-        }else{
-            console.log('user already exist');
-            return res.json({msg:'user already exist'})
-        }
+        const { title, body } = req.body;
+        const userId = req.user._id; // Extract user ID from authenticated user
+        console.log('user id =>', userId)
+        const newPost = new Posts({ userId, title, id, body, isCustom: true });
+        await newPost.save();
+        return res.status(201).json({ message: 'Custom post created successfully' });
     } catch (error) {
-        console.error('Error during registration:', error);
+        console.error('Error creating custom post:', error);
         return res.status(500).json({ error: 'Internal Server Error' });
     }
-})
+});
+
+
+// router.post('/api/custom-post', verifyToken, async (req, res) => {
+//     try {
+//         const { title, body } = req.body;
+//         if (!title || !body) {
+//             return res.status(400).json({ error: 'Please provide title and body for the post' });
+//         }
+//         const userId = req.user.userId;
+//         const newPost = new Posts({ userId, title, body, isCustom: true });
+//         await newPost.save();
+//         return res.status(201).json({ message: 'Custom post created successfully' });
+//     } catch (error) {
+//         console.error('Error creating custom post:', error);
+//         return res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
+
 
 // get just custom posts
 
-router.get('/api/custom-posts', async(req, res)=>{
-    try {
-        const posts = await Posts.find({isCustom:true});
-        res.status(200).json(posts);
-    } catch (error) {
-        console.log('Error fetching posts', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-})
-
-// router.get('/api/specificUserPosts', async (req, res) => {
+// router.get('/api/custom-posts', async(req, res)=>{
 //     try {
-//         const token = req.headers.authorization?.split(' ')[1];
-//         if (!token) {
-//             return res.status(401).json({ message: 'JWT token is missing.' });
-//         }
-
-//         const decodeToken = jwt.verify(token, 'SECRETKEY');
-//         const userId = decodeToken.userId;
-
-//         // Fetch only the custom posts created by the logged-in user
-//         const customPosts = await Posts.find({ isCustom: true, createdBy: userId });
-//         res.json(customPosts);
+//         const posts = await Posts.find({isCustom:true});
+//         res.status(200).json(posts);
 //     } catch (error) {
-//         console.error('Error fetching custom posts:', error);
-//         if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {
-//             return res.status(401).json({ error: 'Invalid or expired JWT token.' });
-//         }
+//         console.log('Error fetching posts', error);
 //         res.status(500).json({ error: 'Internal Server Error' });
 //     }
-// });
+// })
+
+
+// Modify the route to get custom posts to filter based on the currently logged-in user
+// Define the route to fetch custom posts
+router.get('/api/custom-posts', verifyToken, async (req, res) => {
+    try {
+        const userId = req.user._id; 
+        console.log('User ID:', userId); // Debugging statement
+
+        // Retrieve custom posts for the current user
+        const posts = await Posts.find({ isCustom: true, userId: userId });
+        console.log('Custom Posts:', posts); // Debugging statement
+        
+        return res.status(200).json(posts);
+    } catch (error) {
+        console.log('Error fetching custom posts:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
+
 
 
 module.exports = router;
