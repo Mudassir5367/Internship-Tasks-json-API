@@ -53,10 +53,9 @@ handleCardClickId(id:number){
   this.router.navigate(['/post',id, { queryParams: { token:'1234'}}])
 
 }
-logout(){
+logout(): void {
   console.log('logout');
-  
-  window.localStorage.setItem('token', '')
-  this.router.navigate(['/login'])
+  localStorage.setItem('token', ''); // Clear the token from localStorage
+  this.router.navigate(['/login']); // Navigate to the login page
 }
 }

@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs/operators';
 
 
 @Injectable({
@@ -50,8 +49,16 @@ export class ApiDataService {
   
   // get just custom posts
 
-  getCustomPosts(){
-    return this.http.get('http://localhost:5001/api/custom-posts');
+    // getCustomPosts(){
+    //   return this.http.get('http://localhost:5001/api/custom-posts');
+    // }
+
+
+  // get just custom posts for specific user
+  getCustomPosts() {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', ""+token);
+    return this.http.get('http://localhost:5001/api/custom-posts', { headers });
   }
 
   // fetch specific login user posts

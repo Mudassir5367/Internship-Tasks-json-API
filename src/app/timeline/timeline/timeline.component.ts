@@ -15,7 +15,7 @@ export class TimelineComponent {
   ){
     this.service.getCustomPosts().subscribe(
       (res:any)=>{
-        console.log(res);
+        console.log('timeline response',res);
         this.customposts = res;
         
       }
