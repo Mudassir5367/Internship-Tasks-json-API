@@ -3,8 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 require('../db/connection')
 const jwt = require('jsonwebtoken')
-const {User} = require('../model/userSchema');
-const {Posts} = require('../model/userSchema');
+const User = require('../model/userSchema');
+const Posts = require('../model/postSchema');
 const verifyToken = require('../middleware/jwtVerify');
 
 router.post('/api/register',async(req, res)=>{
@@ -119,40 +119,23 @@ router.get('/api/post/:id', async (req, res) => {
 
 // custom post by login user
 
-// router.post('/api/customPost', async (req, res)=>{
-//     try {
-//         const {userId, id, title, body} = req.body;
-//         const data = await Posts.findOne({ id:id });
-//         if(data){
-//             console.log('Post with the same ID already exists');
-//             return res.json({msg:'Post with the same ID already exists'})
-//         }else{
-//             const newPost = new Posts({
-//                 userId,
-//                 title,
-//                 id,
-//                 body,
-//                 isCustom: true,
-//                 // users,
-                
-//             })
-//             await newPost.save();
-//             console.log('user data added to the database');
-//             return res.json({ msg: 'User data added to the database' });
-//         }
-//     } catch (error) {
-//         console.error('Error during registration:', error);
-//         return res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// })
-
 
 router.post('/api/customPost', verifyToken, async (req, res) => {
     try {
-        const { title, body } = req.body;
+        const { title, id, body } = req.body;
+        const data = await Posts.findOne({ id:id });
+        if(data){
+        console.log('Post with the same ID already exists');
+        return res.json({msg:'Post with the same ID already exists'})
+        }
         const userId = req.user._id; // Extract user ID from authenticated user
         console.log('user id =>', userId)
-        const newPost = new Posts({ userId, title, id, body, isCustom: true });
+        const newPost = new Posts({ 
+        title,
+        id,
+        users:userId,
+        body,
+     });
         await newPost.save();
         return res.status(201).json({ message: 'Custom post created successfully' });
     } catch (error) {
@@ -160,23 +143,6 @@ router.post('/api/customPost', verifyToken, async (req, res) => {
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
-
-// router.post('/api/custom-post', verifyToken, async (req, res) => {
-//     try {
-//         const { title, body } = req.body;
-//         if (!title || !body) {
-//             return res.status(400).json({ error: 'Please provide title and body for the post' });
-//         }
-//         const userId = req.user.userId;
-//         const newPost = new Posts({ userId, title, body, isCustom: true });
-//         await newPost.save();
-//         return res.status(201).json({ message: 'Custom post created successfully' });
-//     } catch (error) {
-//         console.error('Error creating custom post:', error);
-//         return res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// });
 
 
 // get just custom posts
@@ -200,8 +166,8 @@ router.get('/api/custom-posts', verifyToken, async (req, res) => {
         console.log('User ID:', userId); // Debugging statement
 
         // Retrieve custom posts for the current user
-        const posts = await Posts.find({ isCustom: true, userId: userId });
-        console.log('Custom Posts:', posts); // Debugging statement
+        const posts = await Posts.find({ users: userId }).sort({time:-1});
+        console.log('Custom Posts:', posts);
         
         return res.status(200).json(posts);
     } catch (error) {
