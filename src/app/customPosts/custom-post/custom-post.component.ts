@@ -20,7 +20,7 @@ export class CustomPostComponent {
     ) {
     this.token = localStorage.getItem('token'); 
     this.customPost = this.formBuilder.group({
-      userId: ['', [Validators.required, ]],
+      userId: [''],
       id: ['', [Validators.required, ]],
       title: ['', Validators.required],
       body: ['', Validators.required]
@@ -35,7 +35,7 @@ export class CustomPostComponent {
         .subscribe(
           (res) => {
             console.log('Custom post created:', res);
-            this.router.navigate(['/posts']);
+            this.router.navigate(['/post']);
           },
           (error) => {
             console.error('Error creating custom post:', error);
