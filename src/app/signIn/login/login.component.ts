@@ -41,9 +41,7 @@ submitData(){
       (res:any) => {
         console.log('User logged in:', res);
         if (res && res.token) {
-        // if (res && (res as { _id: string })._id) {
           localStorage.setItem('token', res.token);
-          // localStorage.setItem('userData', JSON.stringify(res.loginUser));
           this.router.navigate(['/selectData',{ queryParams: { token:'1234'}}]);
         } else {
           // this.router.navigate(['/login']);

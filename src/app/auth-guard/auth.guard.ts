@@ -12,9 +12,8 @@ export const authGuard: CanActivateFn  = (route:ActivatedRouteSnapshot, state:Ro
   //   return false;
   // }
   const token = window.localStorage.getItem('token')
-  if(token){
-    
-  }
+  if(token){}
+  
   service.verifyToken().subscribe(
     (res:any) => {
       console.log('Response:', res);

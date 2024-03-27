@@ -21,7 +21,7 @@ const routes: Routes = [
   {path:'custom', component:CustomPostComponent,  canActivate: [authGuard] },
   {path:'post/:id', component:IdCardsComponent, canActivate: [authGuard] },
   { path: 'post/:id/comments', component: CommentCardComponent, canActivate: [authGuard]},
-  { path: '**', component: PageNotFoundComponent }
+  { path: '**', component: LoginComponent }
 ];
 
 @NgModule({
