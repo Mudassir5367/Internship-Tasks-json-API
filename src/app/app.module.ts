@@ -16,6 +16,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { CustomPostComponent } from './customPosts/custom-post/custom-post.component';
 import { HomeTimelineComponent } from './data-filter/home-timeline/home-timeline.component';
 import { TimelineComponent } from './timeline/timeline/timeline.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { TimelineComponent } from './timeline/timeline/timeline.component';
     PageNotFoundComponent,
     CustomPostComponent,
     HomeTimelineComponent,
-    TimelineComponent
+    TimelineComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import { TimelineComponent } from './timeline/timeline/timeline.component';
   ],
   providers: [
     provideClientHydration(),
-    ApiDataService
+    ApiDataService,
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent]
 })

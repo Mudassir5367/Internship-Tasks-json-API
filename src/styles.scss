@@ -97,3 +97,21 @@
     width: 200px;
     cursor: pointer;
 }
+
+.crudBtn{
+    display: flex;
+}
+.editDelBtn{
+    margin: 20px;
+}
+.editDelBtn button{
+    padding: 10px;
+    width: 80px;
+    background-color: indigo;
+    color: gold;
+    border: none;
+    border-radius: 5px;
+
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

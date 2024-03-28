@@ -22,13 +22,64 @@
     </div>
 </div> -->
 <!--Display a loading message while fetching data -->
+
+
 <div class="main" >
-    <div *ngIf="post" class="posts" (click) = 'gotoComments()'>
+    <div *ngIf="post" class="posts">
         <h2>Title: {{ post.title }}</h2>
         <p> ID: {{ post.id }}</p>
         <p>userID:  {{ post.userId }}</p>
         <p>Body:  {{ post.body }}</p>
-        <!-- Display other post details as needed -->
+        <div class="crudBtn">
+        <div class="editDelBtn" (click) = 'deletePost(post.id)'><button>Delete</button></div>
+        <div class="editDelBtn"> <button mat-button (click)="openEditModal(post)">Edit Post</button></div>
+        <!-- <div class="editDelBtn"><button (click) = 'updatePost(post.id, post)'>Edit</button></div> -->
+       
+
+        </div>
+       
       </div>
 </div>
+
+<!--   
+
+<div class="main">
+    <div *ngIf="post" class="posts">
+      <h2>Title: {{ post.title }}</h2>
+      <p>ID: {{ post.id }}</p>
+      <p>userID: {{ post.userId }}</p>
+      <p>Body: {{ post.body }}</p>
+      <div class="crudBtn">
+        <div class="editDelBtn" (click)="deletePost(post.id)"><button>Delete</button></div>
+        <div class="editDelBtn"><button (click)="openEditModal(post)">Edit</button></div>
+      </div>
+    </div>
+  </div>
   
+  
+  <div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="editPostModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editPostModalLabel">Edit Post</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #editPostForm="ngForm" (ngSubmit)="submitEditForm()">
+            <div class="form-group">
+              <label for="editTitle">Title</label>
+              <input type="text" class="form-control" id="editTitle" name="editTitle" [(ngModel)]="editPostData.title" required>
+            </div>
+            <div class="form-group">
+              <label for="editBody">Body</label>
+              <textarea class="form-control" id="editBody" name="editBody" [(ngModel)]="editPostData.body" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+   -->

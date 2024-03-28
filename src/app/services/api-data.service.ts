@@ -30,12 +30,7 @@ export class ApiDataService {
 
   fetchAllPosts() {
     return this.http.get('http://localhost:5001/api/posts')
-      // .pipe(
-      //   catchError(error => {
-      //     console.error('Error fetching posts:', error);
-      //     throw error; // Rethrow the error to be caught by the subscriber
-      //   })
-      // );
+    
   }
 
   fetchPostDetailsById(id: number) {
@@ -61,11 +56,16 @@ export class ApiDataService {
     return this.http.get('http://localhost:5001/api/custom-posts', { headers });
   }
 
-  // fetch specific login user posts
-  // fetchCustomPosts(token:string){
-  //   const headers = new HttpHeaders().set('Authorization', '' +token) 
-  //   return this.http.get('http://localhost:5001/api/specificUserPosts', {headers})
-  // }
+  // delete post
+  deletePost(id:number){
+    return this.http.delete(`http://localhost:5001/deletePost/${id}`)
+    }
+
+    // update post
+    updatePost(id:any, data:any){
+      return this.http.put(`http://localhost:5001/updatePost/${id}`, data)
+      }
+
 
   // Auth-Guard
 

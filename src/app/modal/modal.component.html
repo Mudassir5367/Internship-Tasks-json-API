@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h5 class="modal-title">Edit Post</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="submitEditForm()">
+      <div class="form-group">
+        <label for="editTitle">Title</label>
+        <input type="text" class="form-control" id="editTitle" name="editTitle" [(ngModel)]="editPostData.title" required>
+      </div>
+      <div class="form-group">
+        <label for="editBody">Body</label>
+        <textarea class="form-control" rows="10" id="editBody" name="editBody" [(ngModel)]="editPostData.body" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+  </div>
