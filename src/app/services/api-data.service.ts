@@ -57,13 +57,17 @@ export class ApiDataService {
   }
 
   // delete post
-  deletePost(id:number){
-    return this.http.delete(`http://localhost:5001/deletePost/${id}`)
+  deletePost(id:string){
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', ""+token);
+    return this.http.delete(`http://localhost:5001/deletePost/${id}`, { headers })
     }
 
     // update post
     updatePost(id:any, data:any){
-      return this.http.put(`http://localhost:5001/updatePost/${id}`, data)
+      const token = localStorage.getItem('token');
+      const headers = new HttpHeaders().set('Authorization', ""+token);
+      return this.http.put(`http://localhost:5001/updatePost/${id}`, data, { headers })
       }
 
 

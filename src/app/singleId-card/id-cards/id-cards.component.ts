@@ -28,6 +28,7 @@ export class IdCardsComponent {
           (res)=>{
             // console.log('idddddddddddd',res);
             this.post = res;
+            this.post = this.post.map((data:any)=> ({...data, expanded:false}))
           }
           )
         })
@@ -40,40 +41,65 @@ export class IdCardsComponent {
     // )
   }
 
-  deletePost(id:number){
-    this.service.deletePost(id).subscribe(
-      (res)=>{
-        console.log(res);
-        this.router.navigate(['/post'])
-      }
-    )
+  toggleExpand(texts:any){
+    texts.expanded = !texts.expanded;
   }
 
 
-  updatePost(id: any, updatedPost: any): void {
-    // Call the service method to update the post
-    this.service.updatePost(id, updatedPost).subscribe(
-      (res: any) => {
-        console.log(res); // Log the response from the backend
-        // If the response indicates success, update the post object
-        if (res.message === 'Post updated successfully') {
-          this.post = { ...updatedPost }; // Update the post object with the edited data
-          // Trigger change detection to update the view
-          this.cdr.detectChanges();
-        }
+  deletePost(id: string) {
+    this.service.deletePost(id).subscribe(
+      (res) => {
+        console.log(res);
+        this.router.navigate(['/post']);
       },
       (error) => {
-        console.error('Error updating post:', error);
-        // Handle any errors that occur during the update process
+        console.error(error);
+        if (error.status === 401) {
+          // Unauthorized: No token provided
+          alert("You are not authorized to delete this post.");
+        } else if (error.status === 404) {
+          // Post not found or user not authorized
+          alert(" You do not have permission to delete it.");
+        } else {
+          // Other error
+          alert("An error occurred while deleting the post.");
+        }
       }
     );
   }
+  
+
+
+  // id-cards.component.ts
+
+updatePost(id: any, updatedPost: any): void {
+  this.service.updatePost(id, updatedPost).subscribe(
+    (res: any) => {
+      console.log(res);
+      if (res.message === 'Post updated successfully') {
+        this.post = { ...updatedPost }; // Update the post object with the edited data
+        this.cdr.detectChanges();
+      }
+    },
+    (error) => {
+      // console.error('Error updating post:', error);
+      if (error.status === 401) {
+        alert("You are not authorized to edit this post.");
+      } else if (error.status === 404) {
+        alert(" You do not have permission to edit it.");
+      } else {
+        alert("An error occurred while updating the post.");
+      }
+    }
+  );
+}
+
 
   openEditModal(postData: any): void {
     console.log('Opening edit modal with post data:', postData);
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '400px',
-      data: { title: postData.title, body: postData.body }
+      data: { title: postData.title, id: postData.id, body: postData.body }
     });
   
     dialogRef.afterClosed().subscribe(result => {
@@ -85,6 +111,13 @@ export class IdCardsComponent {
         this.updatePost(postData.id, result);
       }
     });
+  }
+
+  // comments section
+
+  comments(id:any){
+    console.log(id);
+    
   }
   
 

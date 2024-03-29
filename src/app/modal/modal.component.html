@@ -11,6 +11,10 @@
         <input type="text" class="form-control" id="editTitle" name="editTitle" [(ngModel)]="editPostData.title" required>
       </div>
       <div class="form-group">
+        <label for="editTitle">Id</label>
+        <input type="number" class="form-control" id="editId" name="editId" [(ngModel)]="editPostData.id" required>
+      </div>
+      <div class="form-group">
         <label for="editBody">Body</label>
         <textarea class="form-control" rows="10" id="editBody" name="editBody" [(ngModel)]="editPostData.body" required></textarea>
       </div>
