@@ -11,7 +11,7 @@ const customPostsByLoginUser = require('../controllers/customPostsByLoginUser')
 const getCustomPostsByLoginUser = require('../controllers/getCustomPostsBtLoginUser')
 const register = require('../controllers/register')
 const deletePost = require('../controllers/deletePost')
-const updatePost = require('../controllers/updatePost')
+const updatePost = require('../controllers/updatePost');
 
 
 router.post('/api/signin', login)
@@ -22,7 +22,7 @@ router.get('/api/post/:id', getSingleCard)
 router.post('/api/customPost', verifyToken, customPostsByLoginUser)
 router.get('/api/custom-posts', verifyToken, getCustomPostsByLoginUser)
 router.post('/api/register', register),
-router.delete('/deletePost/:id', deletePost)
-router.put('/updatePost/:id', updatePost)
+router.delete('/deletePost/:id', verifyToken, deletePost);
+router.put('/updatePost/:id', verifyToken, updatePost)
 
 module.exports = router
