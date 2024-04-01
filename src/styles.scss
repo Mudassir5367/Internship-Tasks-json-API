@@ -114,5 +114,15 @@
     border-radius: 5px;
 
 }
+
+.fa-heart {
+    cursor: pointer;
+  }
+  
+  .fa-heart.liked {
+    color: red; /* or any color you want for liked state */
+  }
+
+  
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

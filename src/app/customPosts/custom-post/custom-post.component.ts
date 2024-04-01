@@ -31,7 +31,7 @@ export class CustomPostComponent {
       window.alert('Please enter valid credentials');
     } else {
       const headers = new HttpHeaders().set('Authorization', ""+this.token);
-      this.http.post('http://localhost:5001/api/customPost', this.customPost.value, { headers })
+      this.http.post('http://localhost:5002/api/customPost', this.customPost.value, { headers })
         .subscribe(
           (res) => {
             console.log('Custom post created:', res);

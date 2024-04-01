@@ -45,7 +45,7 @@ submitData(){
     console.log(this.signUpForm.value);
   }
   if (this.signUpForm.valid) {
-    this.http.post('http://localhost:5001/api/register', this.signUpForm.value, {
+    this.http.post('http://localhost:5002/api/register', this.signUpForm.value, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
