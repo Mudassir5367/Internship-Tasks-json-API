@@ -3,10 +3,7 @@ const mongoose = require('mongoose');
 // Posts Schema
 
 const postsSchema = new mongoose.Schema({
-    // userId: {
-    //     type: String,
-    //     required: true
-    // },
+    
     id:{
         required: true,
         type: Number
@@ -28,7 +25,15 @@ const postsSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         // required: true
-    },    
+    }, 
+    likes: [{
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        name: String, // Add fields as needed to store user details
+        // Add more fields as needed
+    }],   
 })
 
 

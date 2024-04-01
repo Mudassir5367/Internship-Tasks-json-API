@@ -12,6 +12,9 @@ const getCustomPostsByLoginUser = require('../controllers/getCustomPostsBtLoginU
 const register = require('../controllers/register')
 const deletePost = require('../controllers/deletePost')
 const updatePost = require('../controllers/updatePost');
+const postLike = require('../controllers/postLike');
+const unLikePost = require('../controllers/unLikePost');
+const getLikeCount = require('../controllers/getLikeCount');
 
 
 router.post('/api/signin', login)
@@ -24,5 +27,8 @@ router.get('/api/custom-posts', verifyToken, getCustomPostsByLoginUser)
 router.post('/api/register', register),
 router.delete('/deletePost/:id', verifyToken, deletePost);
 router.put('/updatePost/:id', verifyToken, updatePost)
+router.post('/like', postLike)
+router.delete('/like/:postId/:userId', unLikePost)
+router.get('/getLikeCount/:postId', getLikeCount)
 
 module.exports = router
