@@ -14,6 +14,7 @@ export class IdCardsComponent {
   posts: any;
   post: any;
   editPostData: Edit = {};
+  comments:any[] = [];
   // @Input() id:string = '';
   constructor(
     private router: Router,
@@ -22,12 +23,16 @@ export class IdCardsComponent {
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef
     ) {
+      console.log(this.comments);
+
       this.route.params.subscribe(params=>{
         const postId = +params['id']
         this.service.fetchPostDetailsById(postId).subscribe(
           (res)=>{
             // console.log('idddddddddddd',res);
             this.post = res;
+            console.log(this.post);
+            
             this.post = this.post.map((data:any)=> ({...data, expanded:false}))
           }
           )
@@ -115,9 +120,20 @@ updatePost(id: any, updatedPost: any): void {
 
   // comments section
 
-  comments(id:any){
-    console.log(id);
+  postComment(postId: any, comment: string): void {
+    console.log(postId, comment);
     
+    this.service.commentOnPost(postId, comment).subscribe(
+      (comment: any) => {
+        console.log('Comments:', comment);
+        this.comments = comment;
+        
+        // You may update UI to reflect the new comment
+      },
+      (error) => {
+        console.error('Error posting comment:', error);
+      }
+    );
   }
   
 

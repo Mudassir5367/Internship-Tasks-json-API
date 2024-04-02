@@ -41,10 +41,14 @@
         <div class="editDelBtn"> <button mat-button (click)="openEditModal(post)">Edit Post</button></div>
         
       </div>
-      <div class="editDelBtn" style="text-align: center; margin-top: 10px;" ><button (click) = 'comments(post.id)'>Comments</button></div>     
+       <div class="editDelBtn" style="text-align: center; margin-top: 10px;" >   <!-- <button (click) = 'postComment(post._id)'>Comments</button> -->
+      
+        <textarea [(ngModel)]="newComment" placeholder="Add a comment"></textarea>
+        <button (click)="postComment(post.id, newComment)">Post</button>
+      </div>     
        
       <div class="posts">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto facere, quis minima suscipit quaerat est provident nam temporibus culpa delectus repudiandae distinctio officiis sapiente? Quisquam molestias laboriosam expedita unde ex voluptas qui, fuga est.</p>
+        <p>{{post.comments}}</p>
       </div>
       </div>
 </div>

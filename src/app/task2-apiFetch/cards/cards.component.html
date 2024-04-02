@@ -28,10 +28,14 @@
         </div>
     </div>
     <div style="margin-top: 20px;">
-        <i style="margin-left: 1rem; font-size: 40px;" class="fa-regular fa-heart" [ngClass]="{'Liked': arr.isLiked}" (click) = 'toggleLike(arr)'></i>
-        <span style="margin-left: 0.5rem; font-size: 30px;">{{ arr.likeCount  }}</span>
-        <i class="fa-regular fa-comments" style="margin-left: 5rem; font-size: 40px;"></i>
-    </div>    
+        <i style="margin-left: 1rem; font-size: 40px;" 
+           class="fa-regular fa-heart" 
+           [ngClass]="{ 'Liked': arr.likes.includes(userId) }" 
+           (click)="toggleLike(arr.id, userId)">
+        </i>
+        <span style="margin-left: 0.5rem; font-size: 30px;">{{ arr.likes.length }}</span>
+        <i class="fa-regular fa-comments" style="margin-left: 5rem; font-size: 40px;" ></i>
+      </div>    
     </div>
 </div>
 

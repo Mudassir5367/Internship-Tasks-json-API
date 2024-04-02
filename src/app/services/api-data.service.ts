@@ -72,17 +72,41 @@ export class ApiDataService {
 
       // post like from users 
       postLike(postId: number, userId: any){
-        return this.http.post('http://localhost:5002/like',{postId, userId})
+        console.log(postId,userId);
+        
+        const token = localStorage.getItem('token')
+        // console.log(token)
+        const headers = new HttpHeaders().set('Authorization', ''+token) 
+        return this.http.post(`http://localhost:5002/like/${postId}`,userId, { headers });
       }
 
-      // delete likes from database 
+      // unLikes from database 
       unLikePost(postId: number, userId: any){
-        return this.http.delete(`http://localhost:5002/like/${postId}/${userId}`)
+        const token = localStorage.getItem('token')
+        console.log(token)
+        const headers = new HttpHeaders().set('Authorization', ''+token) 
+        return this.http.post(`http://localhost:5002/unlike/${postId}`,userId, { headers });
       }
 
       // get likeCount
-      getLikeCount(postId: number) {
-        return this.http.get(`http://localhost:5002/getLikeCount/${postId}`);
+      // getLikeCount(postId: number) {
+      //   return this.http.get(`http://localhost:5002/getLikeCount/${postId}`);
+      // }
+
+      likeAndUnlikePost(postId:string){
+        const body = postId
+        const token = localStorage.getItem('token')
+        console.log(token)
+        const header = new HttpHeaders().set('Authorization', ''+token) 
+        return this.http.post(`http://localhost:5002/like/${postId}`,body, {headers: header})
+      }
+
+      commentOnPost(postId:any, comment:string){
+        const body = {postId, comment}
+        const token = window.localStorage.getItem('token')
+        console.log(token,'token');        
+        const headers = new HttpHeaders().set('Authorization', ''+token) 
+        return this.http.post(`http://localhost:5002/comment/${postId}`, body, { headers: headers})
       }
     
 

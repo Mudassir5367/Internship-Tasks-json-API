@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiDataService } from '../../services/api-data.service';
 import { Router } from '@angular/router';
-import { Post } from '../../interfaces/edit';
 
 @Component({
   selector: 'app-cards',
@@ -11,9 +10,7 @@ import { Post } from '../../interfaces/edit';
 export class CardsComponent {
 allData:any = [];
 dataFromBackend:any = [];
-likes:any [] = []
-// isLiked:boolean = false;
-// likeCount:number = 0;
+likeStatus: boolean = false;
 constructor(private service:ApiDataService,
   private router:Router
   ){
@@ -43,9 +40,7 @@ fetchPosts() {
   this.service.fetchAllPosts().subscribe(
     (posts: any) => {
       console.log('Fetched posts:', posts);
-      this.dataFromBackend = Object.values(posts).map((post: any) => {
-        return { ...post, likeCount: 0 }  // Initialize likeCount to zero for each post
-      });
+      this.dataFromBackend = posts
     },
     (error) => {
       console.error('Error fetching posts:', error);
@@ -73,52 +68,103 @@ logout(): void {
 
 
 // like and unlike post
-toggleLike(data: any): void {
-  const userId = data._id;
+toggleLike(postId: number, userId: number): void {
+  const postIndex = this.dataFromBackend.findIndex((post: { _id: number; }) => post._id === postId);
+  if (postIndex !== -1) {
+    const currentPost = this.dataFromBackend[postIndex];
+    const isLiked = currentPost.likes.includes(userId);
 
-  if (data.isLiked) {
-    this.service.postLike(data.id, userId).subscribe(
-      (res) => {
-        console.log('Post liked:', res);
-        this.fetchLikeCountAndUpdate(data.id);
-      },
-      (error) => {
-        console.error('Error liking post:', error);
-        // Handle error
-      }
-    );
-  } else {
-    this.service.unLikePost(data.id, userId).subscribe(
-      (res) => {
-        console.log('Post unliked:', res);
-        this.fetchLikeCountAndUpdate(data.id);
-      },
-      (error) => {
-        console.error('Error unliking post:', error);
-        // Handle error
-      }
-    );
-  }
-
-  data.isLiked = !data.isLiked;
-}
-
-fetchLikeCountAndUpdate(postId: number): void {
-  this.service.getLikeCount(postId).subscribe(
-    (res:any) => {
-      console.log('likes', res);
-      this.likes = res
-      
-      const postToUpdate = this.dataFromBackend.find((post: any) => post.id === postId);
-      if (postToUpdate) {
-        postToUpdate.likeCount = res.likeCount;
-      }
-    },
-    (error) => {
-      console.error('Error fetching like count:', error);
+    if (isLiked) {
+      // Unlike the post
+      this.service.unLikePost(postId, userId).subscribe(
+        response => {
+          console.log('Post unliked successfully', response);
+          // Remove userId from likes array
+          const userIndex = currentPost.likes.indexOf(userId);
+          if (userIndex !== -1) {
+            currentPost.likes.splice(userIndex, 1);
+          }
+        },
+        error => {
+          console.error('Error unliking post', error);
+          // Handle error
+        }
+      );
+    } else {
+      // Like the post
+      this.service.postLike(postId, userId).subscribe(
+        response => {
+          console.log('Post liked successfully', response);
+          // Add userId to likes array
+          currentPost.likes.push(userId);
+        },
+        error => {
+          console.error('Error liking post', error);
+          // Handle error
+        }
+      );
     }
-  );
+  }
 }
+
+
+// Assuming postId and userId are numbers
+// likePost(postId: number, userId: number): void {
+//   this.service.postLike(postId, userId).subscribe(
+//     response => {
+//       console.log('Post liked successfully', response);
+//       // Update UI or perform any additional action
+//     },
+//     error => {
+//       console.error('Error liking post', error);
+//       // Handle error
+//     }
+//   );
+// }
+
+// unlikePost(postId: number, userId: number): void {
+//   this.service.unLikePost(postId, userId).subscribe(
+//     response => {
+//       console.log('Post unliked successfully', response);
+//       // Update UI or perform any additional action
+//     },
+//     error => {
+//       console.error('Error unliking post', error);
+//       // Handle error
+//     }
+//   );
+// }
+
+
+// toggleLike(postId: number, userId: number): void {
+//   if (!this.likeStatus) {
+//     this.service.postLike(postId, userId).subscribe(
+//       response => {
+//         console.log('Post liked successfully', response);
+        // Update UI or perform any additional action
+        // this.likeStatus = true; // Set likeStatus to true when post is liked
+      // },
+//       error => {
+//         console.error('Error liking post', error);
+//         // Handle error
+//       }
+//     );
+//   } else {
+//     this.service.unLikePost(postId, userId).subscribe(
+//       response => {
+//         console.log('Post unliked successfully', response);
+//         // Update UI or perform any additional action
+//         this.likeStatus = false; // Set likeStatus to false when post is unliked
+//       },
+//       error => {
+//         console.error('Error unliking post', error);
+//         // Handle error
+//       }
+//     );
+//   }
+// }
+
+
 
 
 
