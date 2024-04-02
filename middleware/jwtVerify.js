@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const verifyToken = (req, res, next) => {
   // Get token from request headers, query parameters, or body
   const token = req.headers.authorization || req.query.token || req.body.token;
+  // console.log(token, 'token');
 
   if (!token) {
     return res.status(401).json({ error: 'Unauthorized: No token provided' });

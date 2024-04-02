@@ -26,14 +26,19 @@ const postsSchema = new mongoose.Schema({
         ref: 'User',
         // required: true
     }, 
-    likes: [{
-        user: {
+    likes: [
+         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },
-        name: String, // Add fields as needed to store user details
-        // Add more fields as needed
-    }],   
+       
+    ],  
+    comments: [
+         {
+           type:String
+        },
+       
+    ], 
 })
 
 
