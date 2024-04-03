@@ -11,6 +11,7 @@ export class CardsComponent {
 allData:any = [];
 dataFromBackend:any = [];
 likeStatus: boolean = false;
+userId: any;
 constructor(private service:ApiDataService,
   private router:Router
   ){
@@ -68,44 +69,45 @@ logout(): void {
 
 
 // like and unlike post
-toggleLike(postId: number, userId: number): void {
-  const postIndex = this.dataFromBackend.findIndex((post: { _id: number; }) => post._id === postId);
-  if (postIndex !== -1) {
-    const currentPost = this.dataFromBackend[postIndex];
-    const isLiked = currentPost.likes.includes(userId);
+toggleLike(postId: number): void {
+  console.log('Toggle like for postId:', postId);
+  const post = this.dataFromBackend.find((post: any) => post._id === postId);
 
+  if (post) {
+    const isLiked = post.likes.includes(this.userId);
     if (isLiked) {
       // Unlike the post
-      this.service.unLikePost(postId, userId).subscribe(
-        response => {
+      this.service.unLikePost(postId, this.userId).subscribe(
+        (response) => {
           console.log('Post unliked successfully', response);
-          // Remove userId from likes array
-          const userIndex = currentPost.likes.indexOf(userId);
-          if (userIndex !== -1) {
-            currentPost.likes.splice(userIndex, 1);
+          // Update the likes array locally
+          const index = post.likes.indexOf(this.userId);
+          if (index !== -1) {
+            post.likes.splice(index, 1);
           }
         },
-        error => {
+        (error) => {
           console.error('Error unliking post', error);
-          // Handle error
         }
       );
     } else {
       // Like the post
-      this.service.postLike(postId, userId).subscribe(
-        response => {
+      this.service.postLike(postId, this.userId).subscribe(
+        (response) => {
           console.log('Post liked successfully', response);
-          // Add userId to likes array
-          currentPost.likes.push(userId);
+          // Update the likes array locally
+          post.likes.push(this.userId);
         },
-        error => {
+        (error) => {
           console.error('Error liking post', error);
-          // Handle error
         }
       );
     }
+  } else {
+    console.error('Post not found');
   }
 }
+
 
 
 // Assuming postId and userId are numbers

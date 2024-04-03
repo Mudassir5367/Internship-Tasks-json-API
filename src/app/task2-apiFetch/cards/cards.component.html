@@ -31,7 +31,7 @@
         <i style="margin-left: 1rem; font-size: 40px;" 
            class="fa-regular fa-heart" 
            [ngClass]="{ 'Liked': arr.likes.includes(userId) }" 
-           (click)="toggleLike(arr.id, userId)">
+           (click)="toggleLike(arr.id, arr.users)">
         </i>
         <span style="margin-left: 0.5rem; font-size: 30px;">{{ arr.likes.length }}</span>
         <i class="fa-regular fa-comments" style="margin-left: 5rem; font-size: 40px;" ></i>

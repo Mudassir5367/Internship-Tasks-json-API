@@ -85,7 +85,7 @@ export class ApiDataService {
         const token = localStorage.getItem('token')
         console.log(token)
         const headers = new HttpHeaders().set('Authorization', ''+token) 
-        return this.http.post(`http://localhost:5002/unlike/${postId}`,userId, { headers });
+        return this.http.delete(`http://localhost:5002/unlike/${postId}`, { headers });
       }
 
       // get likeCount
