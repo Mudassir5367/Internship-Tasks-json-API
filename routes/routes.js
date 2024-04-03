@@ -30,7 +30,7 @@ router.post('/api/register', register),
 router.delete('/deletePost/:id', verifyToken, deletePost);
 router.put('/updatePost/:id', verifyToken, updatePost)
 router.post('/like/:postId', verifyToken, postLike)
-router.post('/unLike/:postId', verifyToken, unLikePost)
+router.delete('/unLike/:postId', verifyToken, unLikePost)
 // router.get('/getLikeCount/:postId', getLikeCount)
 // router.post('/like/:postId', verifyToken, likeAndUnlikePost)
 router.post('/comment/:postId', verifyToken, postComments)

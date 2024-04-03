@@ -3,7 +3,7 @@ const Posts = require('../model/postSchema')
 const unLikePost =  async (req, res) => {
   const  postId  = req.body.postId;
   const userId = req.user._id;
-  console.log(userId);
+  console.log(userId,postId);
 
   try {
       const post = await Posts.findOne(postId);
